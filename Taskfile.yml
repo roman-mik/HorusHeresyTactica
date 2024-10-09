@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  format-go:
+    cmds:
+      - gofmt -w ./backend
+    silent: true

@@ -17,3 +17,8 @@ Built using **Go** for the backend and **HTMX** for the frontend, HorusHeresyTac
 - **PostgreSQL**: (Optional) Database for storing legion stats, battle outcomes, and user data.
 
 Whether you're looking to explore tactical scenarios or build out your own wargaming simulator, HorusHeresyTactica offers a fun and educational project to explore the power of Go and HTMX.
+
+
+## Necessary tools:
+- **Homebrew**: Package manager - [brew.sh](https://brew.sh) 
+- **Taskfile**: Task runner - [taskfile.dev](https://taskfile.dev)
