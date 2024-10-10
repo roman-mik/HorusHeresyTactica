@@ -27,7 +27,7 @@ Whether you're looking to explore tactical scenarios or build out your own warga
 
 golang-migrate is a database migration tool for Go. It allows you to manage your database schema by applying incremental changes (migrations) to your database. This helps in versioning your database schema and ensures that your database structure is consistent across different environments.
 
-# Create migration
+### Create migration
 ```
 migrate create -ext sql -dir db/migrations -seq migration_name
 ```
@@ -36,12 +36,12 @@ or using task
 task create-migration -- migration_name
 ```
 
-# Run migration
+### Run migration
 
 ```
 migrate -source file://internal/database/migrations -database "postgres://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}?sslmode=disable" up
 ```
 or using task
 ```
-
+task migrate-up
 ```
