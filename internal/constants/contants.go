@@ -1,0 +1,7 @@
+package constants
+
+const DB_USER = "POSTGRES_USER"
+const DB_PASSWORD = "POSTGRES_PASSWORD"
+const DB_NAME = "POSTGRES_DB"
+const DB_HOST = "POSTGRES_HOST"
+const DB_PORT = "POSTGRES_PORT"

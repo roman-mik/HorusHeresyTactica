@@ -5,3 +5,20 @@ tasks:
     cmds:
       - gofmt -w .
     silent: true
+  docker:start:
+    cmds:
+      - docker compose up -d
+    silent: true
+  docker:stop:
+    cmds:
+      - docker compose down
+    silent: true
+  migrate-create:
+    cmds:
+      - migrate create -ext sql -dir internal/database/migrations -seq {{.CLI_ARGS}}
+    silent: true
+  migrate-up:
+    dotenv: ['.env']
+    cmds:
+      - migrate -source file://internal/database/migrations -database "postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB?sslmode=disable" up
+    silent: true

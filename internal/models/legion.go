@@ -1,39 +1,68 @@
 package models
 
-type Legion struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-}
+import (
+	"context"
+	"fmt"
+	"os"
 
-var Legions = []Legion{
-	{ID: 1, Name: "Dark Angels"},
-	{ID: 3, Name: "Emperor's Children"},
-	{ID: 4, Name: "Iron Warriors"},
-	{ID: 5, Name: "White Scars"},
-	{ID: 6, Name: "Space Wolves"},
-	{ID: 7, Name: "Imperial Fists"},
-	{ID: 8, Name: "Night Lords"},
-	{ID: 9, Name: "Blood Angels"},
-	{ID: 10, Name: "Iron Hands"},
-	{ID: 11, Name: "World Eaters"},
-	{ID: 13, Name: "Ultramarines"},
-	{ID: 14, Name: "Death Guard"},
-	{ID: 15, Name: "Thousand Sons"},
-	{ID: 16, Name: "Sons of Horus"},
-	{ID: 17, Name: "Word Bearers"},
-	{ID: 18, Name: "Salamanders"},
+	"github.com/roman-mik/horus-heresy-tactica/internal/database"
+)
+
+type Legion struct {
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Number string `json:"number"`
 }
 
 // GetLegions returns the list of legions
 func GetLegions() []Legion {
+	conn := database.GetConnection()
+
+	defer database.CloseConnection(conn)
+
+	var Legions []Legion
+
+	rows, err := conn.Query(context.Background(), "SELECT * FROM legions")
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to get Legions: %v\n", err)
+		return nil
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var legion Legion
+
+		rows.Scan(&legion.ID, &legion.Name, &legion.Number)
+
+		Legions = append(Legions, legion)
+	}
+
+	if err := rows.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "GetLegions: Unable to read rows from legions table: %v\n", err)
+		return nil
+	}
+
 	return Legions
 }
 
 func GetLegionByID(id int) *Legion {
-	for _, legion := range Legions {
-		if legion.ID == id {
-			return &legion
-		}
+	conn := database.GetConnection()
+
+	defer database.CloseConnection(conn)
+
+	var legion Legion
+
+	err := conn.QueryRow(
+		context.Background(),
+		"SELECT * FROM legions WHERE id = $1",
+		id,
+	).Scan(&legion.ID, &legion.Name, &legion.Number)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to get Legion by ID: %v\n", err)
+		return nil
 	}
-	return nil
+
+	return &legion
 }
