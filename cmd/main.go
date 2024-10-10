@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/roman-mik/horus-heresy-tactica/internal/models"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	var legions = models.GetLegions()
+	fmt.Print(legions)
 }

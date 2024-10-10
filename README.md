@@ -18,7 +18,30 @@ Built using **Go** for the backend and **HTMX** for the frontend, HorusHeresyTac
 
 Whether you're looking to explore tactical scenarios or build out your own wargaming simulator, HorusHeresyTactica offers a fun and educational project to explore the power of Go and HTMX.
 
-
 ## Necessary tools:
 - **Homebrew**: Package manager - [brew.sh](https://brew.sh) 
 - **Taskfile**: Task runner - [taskfile.dev](https://taskfile.dev)
+
+## Migrations
+- **golang-migrate** - [link](https://github.com/golang-migrate/migrate/tree/master)
+
+golang-migrate is a database migration tool for Go. It allows you to manage your database schema by applying incremental changes (migrations) to your database. This helps in versioning your database schema and ensures that your database structure is consistent across different environments.
+
+# Create migration
+```
+migrate create -ext sql -dir db/migrations -seq migration_name
+```
+or using task
+```
+task create-migration -- migration_name
+```
+
+# Run migration
+
+```
+migrate -source file://internal/database/migrations -database "postgres://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}?sslmode=disable" up
+```
+or using task
+```
+
+```
