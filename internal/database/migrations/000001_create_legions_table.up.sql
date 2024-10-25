@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS legions(
-    id INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
