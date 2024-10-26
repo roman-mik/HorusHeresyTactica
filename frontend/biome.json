@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": []
+    "ignore": [
+      "./node_modules",
+      "./.next/",
+      "./package.json",
+      "./package-lock.json",
+      "./tsconfig.json",
+      "./biome.json"
+    ]
   },
   "formatter": {
     "enabled": true,
