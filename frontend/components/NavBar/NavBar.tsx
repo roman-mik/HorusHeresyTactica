@@ -1,4 +1,4 @@
-import styles from './NavBar.module.css';
+import * as styles from './NavBar.module.css';
 
 export const NavBar: React.FC = () => {
   return (
